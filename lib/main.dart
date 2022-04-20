@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import './questions.dart';
+import './quiz_brain.dart';
+
+QuizBrain quizbrain = QuizBrain();
 
 void main() => runApp(const Quizzler());
 
@@ -32,13 +34,6 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
   int questionNumber = 0;
-  List<Questions> questionsBank = [
-    Questions(q: 'You can lead a cow downstairs but not upstaires', a: false),
-    Questions(
-        q: 'Approximatly one quater of human bones are in feet.', a: true),
-    Questions(q: 'A slug\'s blood is green.', a: true),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,7 +46,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionsBank[questionNumber].questionText,
+                quizbrain.questionsBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -77,11 +72,11 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 bool correctAnswer =
-                    questionsBank[questionNumber].questionAnswer;
+                    quizbrain.questionsBank[questionNumber].questionAnswer;
                 if (correctAnswer == true) {
-                  print('True');
+                  // print('True');
                 } else {
-                  print('false');
+                  // print('false');
                 }
                 setState(() {
                   questionNumber++;
@@ -106,11 +101,11 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 bool correctAnswer =
-                    questionsBank[questionNumber].questionAnswer;
+                    quizbrain.questionsBank[questionNumber].questionAnswer;
                 if (correctAnswer == false) {
-                  print('True');
+                  // print('True');
                 } else {
-                  print('false');
+                  // print('false');
                 }
                 setState(() {
                   questionNumber++;
