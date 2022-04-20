@@ -33,7 +33,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,7 +45,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizbrain.questionsBank[questionNumber].questionText,
+                quizbrain.getQustionText(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -71,15 +70,14 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer =
-                    quizbrain.questionsBank[questionNumber].questionAnswer;
+                bool correctAnswer = quizbrain.getQustionAnswer();
                 if (correctAnswer == true) {
                   // print('True');
                 } else {
                   // print('false');
                 }
                 setState(() {
-                  questionNumber++;
+                  quizbrain.nextQuestion();
                 });
               },
             ),
@@ -100,15 +98,14 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer =
-                    quizbrain.questionsBank[questionNumber].questionAnswer;
+                bool correctAnswer = quizbrain.getQustionAnswer();
                 if (correctAnswer == false) {
                   // print('True');
                 } else {
                   // print('false');
                 }
                 setState(() {
-                  questionNumber++;
+                  quizbrain.nextQuestion();
                 });
               },
             ),
