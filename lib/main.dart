@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizbrain = QuizBrain();
 
@@ -33,6 +34,32 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
+
+  void answerCheak(bool userAnswer) {
+    bool correctAnswer = quizbrain.getQustionAnswer();
+    setState(() {
+      if (quizbrain.isFinished() == true) {
+        Alert(
+                context: context,
+                title: 'Finished',
+                desc: 'You finished the quiz')
+            .show();
+        quizbrain.reset();
+        scoreKeeper = [];
+      } else {
+        if (userAnswer == correctAnswer) {
+          scoreKeeper.add(const Icon(Icons.check, color: Colors.green));
+        } else {
+          scoreKeeper.add(const Icon(
+            Icons.close,
+            color: Colors.red,
+          ));
+        }
+        quizbrain.nextQuestion();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,15 +97,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizbrain.getQustionAnswer();
-                if (correctAnswer == true) {
-                  // print('True');
-                } else {
-                  // print('false');
-                }
-                setState(() {
-                  quizbrain.nextQuestion();
-                });
+                answerCheak(true);
               },
             ),
           ),
@@ -98,15 +117,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizbrain.getQustionAnswer();
-                if (correctAnswer == false) {
-                  // print('True');
-                } else {
-                  // print('false');
-                }
-                setState(() {
-                  quizbrain.nextQuestion();
-                });
+                answerCheak(false);
               },
             ),
           ),
